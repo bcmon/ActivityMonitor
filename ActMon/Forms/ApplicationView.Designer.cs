@@ -34,6 +34,7 @@
             this.lbAppUsage = new System.Windows.Forms.Label();
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.pbIcon = new System.Windows.Forms.PictureBox();
+            this.ttip = new System.Windows.Forms.ToolTip();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,6 +74,10 @@
             this.pbIcon.TabIndex = 0;
             this.pbIcon.TabStop = false;
             // 
+            // tooltip
+            //
+            this.ttip.InitialDelay = 500;
+            // 
             // ApplicationView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -97,5 +102,6 @@
         private System.Windows.Forms.Label lbAppUsage;
         private System.Windows.Forms.Timer tmrRefresh;
         private System.Windows.Forms.PictureBox pbIcon;
+        private System.Windows.Forms.ToolTip ttip;
     }
 }

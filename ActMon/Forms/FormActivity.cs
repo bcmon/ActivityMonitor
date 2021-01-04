@@ -36,7 +36,7 @@ namespace ActMon.Forms
             List<ComboItem> items = new List<ComboItem>();
             items.Add(new ComboItem() { Key = 0, Text = "Time" }); // descending
             items.Add(new ComboItem() { Key = 1, Text = "Name"  });  // ascending
-            items.Add(new ComboItem() { Key = 2, Text = "Usage" });  // descending
+            items.Add(new ComboItem() { Key = 2, Text = "Events" });  // descending
 
             _sortMethod.DataSource = items;
             _sortMethod.DisplayMember = "Text";

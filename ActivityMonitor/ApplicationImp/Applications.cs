@@ -29,7 +29,7 @@ namespace ActivityMonitor.Application
                 sorted = this.OrderBy(x => x.Name).ThenByDescending(x => x.TotalTimeInMinutes).ToList();
                 
             }
-            else if (sortMethod == "Usage")
+            else if (sortMethod == "Events")
             {
                 sorted = this.OrderByDescending(x => x.Usage.Count).ThenBy(x => x.Name).ToList();
             }

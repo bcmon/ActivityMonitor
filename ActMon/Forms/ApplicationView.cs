@@ -95,7 +95,8 @@ namespace ActMon.Forms
             if (_application != null)
             {
                 _bindSrc.ResetBindings(false);
-                lbAppUsage.Text = _application.TotalUsageTime.ToString(@"hh\:mm\:ss") + " (" + appPct().ToString() + "%)";
+                lbAppUsage.Text = _application.TotalUsageTime.ToString(@"hh\:mm\:ss") + " (" + appPct().ToString() + "%)";    
+                ttip.SetToolTip(lbAppUsage, $"Events: {_application.Usage.Count}");
                 pbApplicationUsage.Value = appPct(1000);
             }
         }
@@ -113,7 +114,7 @@ namespace ActMon.Forms
         private void ApplicationView_Resize(object sender, EventArgs e)
         {
             lbAppUsage.Left = this.Width - lbAppUsage.Width - 10;
-            pbApplicationUsage.Width = lbAppUsage.Left - pbApplicationUsage.Left - 10 ;
+            pbApplicationUsage.Width = lbAppUsage.Left - pbApplicationUsage.Left - 10 +40;
         }
 
         public void TriggerResize()
