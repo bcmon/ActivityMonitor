@@ -97,6 +97,7 @@ namespace ActMon.Forms
                 _bindSrc.ResetBindings(false);
                 lbAppUsage.Text = _application.TotalUsageTime.ToString(@"hh\:mm\:ss") + " (" + appPct().ToString() + "%)";    
                 ttip.SetToolTip(lbAppUsage, $"Events: {_application.Usage.Count}");
+                ttip.SetToolTip(pbApplicationUsage, $"Events: {_application.Usage.Count}");
                 pbApplicationUsage.Value = appPct(1000);
             }
         }
