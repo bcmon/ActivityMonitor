@@ -9,15 +9,19 @@ namespace ActMon.Forms
 
     public partial class FormActivity : Form
     {
+        private string _appPath;
         private AppMonitor _appMon;
         private ApplicationView _idleCtl;
         private ComboBox _sortMethod;
+        private CheckBox _chkIgnoreWindowsApps;
 
         public FormActivity(AppMonitor AppMonitor)
         {
             InitializeComponent();
 
             _appMon = AppMonitor;
+            _appPath = new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).AbsolutePath.ToLower();
+            _appPath = _appPath.Replace("/", "\\");
 
             // idle time always at the top
             _idleCtl = new ApplicationView(_appMon);
@@ -44,12 +48,21 @@ namespace ActMon.Forms
 
             flApplicationsUsage.Controls.Add(_sortMethod);
 
-            var sortButton = new Button();
-            sortButton.Text = "Refresh";
-            sortButton.MouseClick += Sb_MouseClick;
-            flApplicationsUsage.Controls.Add(sortButton);
+            _chkIgnoreWindowsApps = new CheckBox();
+            _chkIgnoreWindowsApps.Width = 170;
+            _chkIgnoreWindowsApps.Text = "Hide Windows/System apps";
+            _chkIgnoreWindowsApps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            _chkIgnoreWindowsApps.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            flApplicationsUsage.Controls.Add(_chkIgnoreWindowsApps);
 
-            flApplicationsUsage.SetFlowBreak(sortButton, true);
+            flApplicationsUsage.SetFlowBreak(_chkIgnoreWindowsApps, true);
+            
+            var refreshButton = new Button();
+            refreshButton.Text = "Refresh";
+            refreshButton.Margin = new Padding(65, 0, 0, 10);
+            refreshButton.MouseClick += RefreshButton_MouseClick;
+            flApplicationsUsage.Controls.Add(refreshButton);
+            flApplicationsUsage.SetFlowBreak(refreshButton, true);
 
             _appMon.Applications.Sort("Time");  // initial sort
 
@@ -57,7 +70,7 @@ namespace ActMon.Forms
             updateView();
         }
 
-        private void Sb_MouseClick(object sender, MouseEventArgs e)
+        private void RefreshButton_MouseClick(object sender, MouseEventArgs e)
         {
             RemoveApplicationViewControls();
             _appMon.Applications.Sort(_sortMethod.GetItemText(_sortMethod.SelectedItem)); 
@@ -79,7 +92,14 @@ namespace ActMon.Forms
             
             foreach (ActivityMonitor.Application.Application lApp in _appMon.Applications)
             {
-                addFlControlIfNotExists(lApp);
+                if (!_chkIgnoreWindowsApps.Checked)
+                {
+                    addFlControlIfNotExists(lApp);
+                } 
+                else if (!lApp.Path.ToLower().Contains("c:\\windows") && lApp.Path.ToLower() != _appPath)
+                {
+                    addFlControlIfNotExists(lApp);
+                }
             }
 
             int pbvalue;
