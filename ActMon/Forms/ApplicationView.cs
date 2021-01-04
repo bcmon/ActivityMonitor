@@ -26,6 +26,8 @@ namespace ActMon.Forms
         private void _initializeControl()
         {
             InitializeComponent();
+            this.ttip = new System.Windows.Forms.ToolTip();
+            this.ttip.InitialDelay = 500;
 
             if (_application != null)
             {

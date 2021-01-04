@@ -34,7 +34,6 @@
             this.lbAppUsage = new System.Windows.Forms.Label();
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.pbIcon = new System.Windows.Forms.PictureBox();
-            this.ttip = new System.Windows.Forms.ToolTip();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,11 +71,7 @@
             this.pbIcon.Name = "pbIcon";
             this.pbIcon.Size = new System.Drawing.Size(39, 39);
             this.pbIcon.TabIndex = 0;
-            this.pbIcon.TabStop = false;
-            // 
-            // tooltip
-            //
-            this.ttip.InitialDelay = 500;
+            this.pbIcon.TabStop = false;            
             // 
             // ApplicationView
             // 
