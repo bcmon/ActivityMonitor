@@ -21,6 +21,31 @@ namespace ActivityMonitor.Application
                     select app).FirstOrDefault() != null;
         }
 
+        public void Sort(string sortMethod = null)
+        {
+            System.Collections.Generic.List<Application> sorted = null;
+            if (sortMethod == "Name")
+            {
+                sorted = this.OrderBy(x => x.Name).ThenByDescending(x => x.TotalTimeInMinutes).ToList();
+                
+            }
+            else if (sortMethod == "Usage")
+            {
+                sorted = this.OrderByDescending(x => x.Usage.Count).ThenBy(x => x.Name).ToList();
+            }
+            else  // time, default, or anything else
+            {
+                sorted = this.OrderByDescending(x => x.TotalTimeInMinutes).ToList();               
+            }
+
+            // sort in place. see NeilW's answer to https://stackoverflow.com/questions/1945461/how-do-i-sort-an-observable-collection
+            for (int i = 0; i < sorted.Count(); i++)
+            {
+                this.Move(this.IndexOf(sorted[i]), i);
+            }
+
+        }
+
         public IApplication this[string applicationName]
         {
             get
